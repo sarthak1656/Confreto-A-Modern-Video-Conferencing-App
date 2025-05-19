@@ -1,7 +1,6 @@
 # Confreto – A Modern Video Conferencing App
 
 🔗 **Live Site**: [https://confreto.vercel.app](https://confreto.vercel.app)  
-📦 **GitHub Repo**: [https://github.com/sarthak1656/Confreto-A-Modern-Video-Conferencing-App](https://github.com/sarthak1656/Confreto-A-Modern-Video-Conferencing-App)
 
 Confreto is a real-time video conferencing web application built with Next.js, TypeScript, and Stream Video SDK. It features powerful meeting management capabilities, secure user authentication using Clerk, and a responsive design for seamless cross-device experience.
 
