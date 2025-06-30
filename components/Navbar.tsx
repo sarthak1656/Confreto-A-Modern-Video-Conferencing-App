@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { SignedIn, UserButton } from '@clerk/nextjs';
+import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 
 import MobileNav from './MobileNav';
 
@@ -15,15 +15,28 @@ const Navbar = () => {
           alt="Confreto logo"
           className="max-sm:size-10"
         />
-        <p className="text-[26px] font-extrabold text-white max-sm:hidden">
+        <span className="text-[26px] font-extrabold text-white max-sm:hidden">
           Confreto
-        </p>
+        </span>
       </Link>
       <div className="flex-between gap-5">
         <SignedIn>
           <UserButton afterSignOutUrl="/sign-in" />
         </SignedIn>
-
+        <SignedOut>
+          <div className="flex gap-2 items-center">
+            <Link href="/sign-up">
+              <button className="h-10 px-6 text-base font-semibold bg-[#0E78F9] hover:bg-blue-700 text-white rounded-md transition-all shadow-sm whitespace-nowrap">
+                Sign Up
+              </button>
+            </Link>
+            <Link href="/sign-in">
+              <button className="h-10 px-6 text-base font-semibold bg-[#23263A] hover:bg-[#252A41] text-white rounded-md border border-[#252A41] transition-all shadow-sm whitespace-nowrap">
+                Log In
+              </button>
+            </Link>
+          </div>
+        </SignedOut>
         <MobileNav />
       </div>
     </nav>
