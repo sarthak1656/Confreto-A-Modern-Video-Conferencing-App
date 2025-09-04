@@ -1,20 +1,28 @@
+
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import {
   DeviceSettings,
   VideoPreview,
   useCall,
   useCallStateHooks,
 } from '@stream-io/video-react-sdk';
+import { useRouter } from 'next/navigation';
+import { ArrowLeft } from 'lucide-react';
 
 import Alert from './Alert';
 import { Button } from './ui/button';
+import { useMediaStreamCleanup } from '@/hooks/useMediaStreamCleanup';
 
 const MeetingSetup = ({
   setIsSetupComplete,
 }: {
   setIsSetupComplete: (value: boolean) => void;
 }) => {
+  const router = useRouter();
+  const mediaStreamRef = useRef<MediaStream | null>(null);
+  const { stopAllMediaStreams: cleanupMediaStreams } = useMediaStreamCleanup();
+
   // https://getstream.io/video/docs/react/guides/call-and-participant-state/#call-state
   const { useCallEndedAt, useCallStartsAt } = useCallStateHooks();
   const callStartsAt = useCallStartsAt();
@@ -34,6 +42,26 @@ const MeetingSetup = ({
   // https://getstream.io/video/docs/react/ui-cookbook/replacing-call-controls/
   const [isMicCamToggled, setIsMicCamToggled] = useState(false);
 
+  // Function to properly stop all media streams
+  const stopAllMediaStreams = () => {
+    // Stop Stream SDK camera and microphone
+    if (call) {
+      call.camera.disable();
+      call.microphone.disable();
+    }
+
+    // Stop any direct media streams
+    if (mediaStreamRef.current) {
+      mediaStreamRef.current.getTracks().forEach((track) => {
+        track.stop();
+      });
+      mediaStreamRef.current = null;
+    }
+
+    // Use the cleanup hook
+    cleanupMediaStreams();
+  };
+
   useEffect(() => {
     if (isMicCamToggled) {
       call.camera.disable();
@@ -42,6 +70,11 @@ const MeetingSetup = ({
       call.camera.enable();
       call.microphone.enable();
     }
+
+    // Cleanup function to disable camera and microphone when component unmounts
+    return () => {
+      stopAllMediaStreams();
+    };
   }, [isMicCamToggled, call.camera, call.microphone]);
 
   if (callTimeNotArrived)
@@ -61,6 +94,23 @@ const MeetingSetup = ({
 
   return (
     <div className="flex h-screen w-full flex-col items-center justify-center gap-3 text-white">
+      {/* Back button */}
+      <div className="absolute top-4 left-4">
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => {
+            // Stop all media streams before navigating back
+            stopAllMediaStreams();
+            router.push('/');
+          }}
+          className="flex items-center gap-2 text-white hover:bg-white/10"
+        >
+          <ArrowLeft size={16} />
+          Back
+        </Button>
+      </div>
+
       <h1 className="text-center text-2xl font-bold">Setup</h1>
       <VideoPreview />
       <div className="flex h-16 items-center justify-center gap-3">

@@ -18,6 +18,9 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        outfit: ['var(--font-outfit)', 'sans-serif'],
+      },
       colors: {
         dark: {
           1: '#1C1F2E',

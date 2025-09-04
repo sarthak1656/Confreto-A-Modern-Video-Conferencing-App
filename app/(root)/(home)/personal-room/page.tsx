@@ -1,12 +1,12 @@
-"use client";
+'use client';
 
-import { useUser } from "@clerk/nextjs";
-import { useStreamVideoClient } from "@stream-io/video-react-sdk";
-import { useRouter } from "next/navigation";
+import { useUser } from '@clerk/nextjs';
+import { useStreamVideoClient } from '@stream-io/video-react-sdk';
+import { useRouter } from 'next/navigation';
 
-import { useGetCallById } from "@/hooks/useGetCallById";
-import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
+import { useGetCallById } from '@/hooks/useGetCallById';
+import { Button } from '@/components/ui/button';
+import { useToast } from '@/components/ui/use-toast';
 
 const Table = ({
   title,
@@ -20,7 +20,7 @@ const Table = ({
       <h1 className="text-base font-medium text-sky-1 lg:text-xl xl:min-w-32">
         {title}:
       </h1>
-      <h1 className="truncate text-sm font-bold max-sm:max-w-[320px] lg:text-xl">
+      <h1 className="truncate font-bold text-sm max-sm:max-w-[320px] lg:text-xl">
         {description}
       </h1>
     </div>
@@ -40,7 +40,7 @@ const PersonalRoom = () => {
   const startRoom = async () => {
     if (!client || !user) return;
 
-    const newCall = client.call("default", meetingId!);
+    const newCall = client.call('default', meetingId!);
 
     if (!call) {
       await newCall.getOrCreate({
@@ -72,7 +72,7 @@ const PersonalRoom = () => {
           onClick={() => {
             navigator.clipboard.writeText(meetingLink);
             toast({
-              title: "Link Copied",
+              title: 'Link Copied',
             });
           }}
         >

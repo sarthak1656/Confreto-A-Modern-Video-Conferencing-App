@@ -1,3 +1,5 @@
+import { auth } from '@clerk/nextjs/server';
+import { redirect } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 import {
   FaVideo,
@@ -10,88 +12,95 @@ import {
 } from 'react-icons/fa';
 import Link from 'next/link';
 
-export default function LandingPage() {
+export default async function LandingPage() {
+  const { userId } = await auth();
+
+  // If user is authenticated, redirect to home page
+  if (userId) {
+    redirect('/home');
+  }
   return (
-    <div className="min-h-screen bg-[#1C1F2E] text-white flex flex-col">
+    <div className="flex min-h-screen flex-col bg-[#1C1F2E] text-white">
       <Navbar />
-      <main className="flex-1 w-full max-w-6xl mx-auto px-4 pt-32 pb-12">
+      <main className="mx-auto max-w-6xl flex-1 px-4 pb-12 pt-32">
         {/* Hero Section */}
         <section
-          className="relative rounded-xl p-0 flex flex-col md:flex-row items-center mb-12 shadow-lg overflow-hidden min-h-[340px]"
+          className="relative mb-12 flex min-h-[340px] flex-col overflow-hidden rounded-xl p-0 shadow-lg md:flex-row md:items-center"
           style={{ minHeight: '340px' }}
         >
           <div
-            className="absolute inset-0 w-full h-full bg-cover bg-center"
+            className="absolute inset-0 size-full bg-cover bg-center"
             style={{
               backgroundImage:
                 'url(https://lh3.googleusercontent.com/aida-public/AB6AXuBJ6pwJP-YA8BoTTkE2rTKXv_9r2upgdWHXZtsugco75DvnuovV0ect8Nx371mZQC3Y_WVs9uGtkylzHwBtg5NgP8YIzVmJtwfcgjC2Gj2B_DBdo405_BhPpLAo6W9wHxAWM7vxHXS-lvIVW2JyDhUaVl2mH3CtTbaewWIu3DMyLZziSNM8NjzI77cjs5knnYnzwVEG7fJbd7AlA6vwuaR3PG2n0vhHtHESyL9Jkb_WDvM0a6oKIWGLLXVhsEhDiocynE0s-E807ts)',
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-black/70 to-black/30 z-10" />
-          <div className="relative z-20 flex-1 flex flex-col justify-center items-start p-8 md:p-16">
-            <h1 className="text-4xl md:text-5xl font-extrabold mb-4 leading-tight text-white">
+          <div className="absolute inset-0 z-10 bg-gradient-to-br from-black/70 to-black/30" />
+          <div className="relative z-20 flex flex-1 flex-col items-start justify-center p-8 md:p-16">
+            <h1 className="mb-4 text-4xl font-extrabold leading-tight text-white md:text-5xl">
               Connect, collaborate, and celebrate
               <br />
               from anywhere
             </h1>
-            <p className="text-lg text-gray-200 mb-6 max-w-lg">
+            <p className="mb-6 max-w-lg text-lg text-gray-200">
               Confreto brings teams together with seamless video conferencing,
               screen sharing, and real-time collaboration tools.
             </p>
-            <Link href="/sign-up">
-              <button className="bg-[#0E78F9] hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg text-lg transition-all">
-                Get Started Free
-              </button>
+            <Link
+              href="/sign-up"
+              className="inline-block rounded-lg bg-[#0E78F9] px-6 py-3 text-lg font-bold text-white transition-all hover:bg-blue-700"
+            >
+              Get Started Free
             </Link>
           </div>
         </section>
 
         {/* Features Section */}
         <section className="mb-16">
-          <h2 className="text-3xl font-extrabold mb-2">
+          <h2 className="mb-2 text-3xl font-extrabold">
             Features that empower your team
           </h2>
-          <p className="text-gray-300 mb-6 max-w-2xl">
+          <p className="mb-6 max-w-2xl text-gray-300">
             Confreto offers a comprehensive suite of tools to enhance your
             virtual meetings and collaboration.
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="bg-[#23263A] rounded-lg p-6 flex flex-col gap-2 border border-[#252A41] items-center">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <div className="flex flex-col items-center gap-2 rounded-lg border border-[#252A41] bg-[#23263A] p-6">
               <div className="mb-2">
                 <FaVideo size={32} />
               </div>
-              <h3 className="font-bold text-xl">High-Quality Video</h3>
-              <p className="text-gray-400 text-base">
+              <h3 className="text-xl font-bold">High-Quality Video</h3>
+              <p className="text-base text-gray-400">
                 Experience crystal-clear video and audio for more engaging
                 meetings.
               </p>
             </div>
-            <div className="bg-[#23263A] rounded-lg p-6 flex flex-col gap-2 border border-[#252A41] items-center">
+            <div className="flex flex-col items-center gap-2 rounded-lg border border-[#252A41] bg-[#23263A] p-6">
               <div className="mb-2">
                 <FaRegShareSquare size={32} />
               </div>
-              <h3 className="font-bold text-xl">Screen Sharing</h3>
-              <p className="text-gray-400 text-base">
+              <h3 className="text-xl font-bold">Screen Sharing</h3>
+              <p className="text-base text-gray-400">
                 Share your screen with ease, allowing for effective
                 presentations and demonstrations.
               </p>
             </div>
-            <div className="bg-[#23263A] rounded-lg p-6 flex flex-col gap-2 border border-[#252A41] items-center">
+            <div className="flex flex-col items-center gap-2 rounded-lg border border-[#252A41] bg-[#23263A] p-6">
               <div className="mb-2">
                 <FaUsers size={32} />
               </div>
-              <h3 className="font-bold text-xl">Team Collaboration</h3>
-              <p className="text-gray-400 text-base">
+              <h3 className="text-xl font-bold">Team Collaboration</h3>
+              <p className="text-base text-gray-400">
                 Collaborate in real-time with shared documents, whiteboards, and
                 interactive tools.
               </p>
             </div>
-            <div className="bg-[#23263A] rounded-lg p-6 flex flex-col gap-2 border border-[#252A41] items-center">
+            <div className="flex flex-col items-center gap-2 rounded-lg border border-[#252A41] bg-[#23263A] p-6">
               <div className="mb-2">
                 <FaComments size={32} />
               </div>
-              <h3 className="font-bold text-xl">Integrated Chat</h3>
-              <p className="text-gray-400 text-base">
+              <h3 className="text-xl font-bold">Integrated Chat</h3>
+              <p className="text-base text-gray-400">
                 Stay connected before, during, and after meetings with built-in
                 chat functionality.
               </p>
@@ -101,40 +110,40 @@ export default function LandingPage() {
 
         {/* Solutions Section */}
         <section className="mb-16">
-          <h2 className="text-3xl font-extrabold mb-2">
+          <h2 className="mb-2 text-3xl font-extrabold">
             Flexible solutions for every need
           </h2>
-          <p className="text-gray-300 mb-6 max-w-2xl">
-            Whether you're a small startup or a large enterprise, Confreto has a
-            plan to fit your requirements.
+          <p className="mb-6 max-w-2xl text-gray-300">
+            Whether you&apos;re a small startup or a large enterprise, Confreto
+            has a plan to fit your requirements.
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="bg-[#252A41] rounded-lg p-6 flex flex-col gap-2 items-center text-center">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            <div className="flex flex-col items-center gap-2 rounded-lg bg-[#252A41] p-6 text-center">
               <div className="mb-2">
                 <FaUserFriends size={48} />
               </div>
-              <h3 className="font-bold text-lg">Small Teams</h3>
-              <p className="text-gray-400 text-base">
+              <h3 className="text-lg font-bold">Small Teams</h3>
+              <p className="text-base text-gray-400">
                 Ideal for small teams and startups, offering essential features
                 for effective collaboration.
               </p>
             </div>
-            <div className="bg-[#252A41] rounded-lg p-6 flex flex-col gap-2 items-center text-center">
+            <div className="flex flex-col items-center gap-2 rounded-lg bg-[#252A41] p-6 text-center">
               <div className="mb-2">
                 <FaChartLine size={48} />
               </div>
-              <h3 className="font-bold text-lg">Growing Businesses</h3>
-              <p className="text-gray-400 text-base">
+              <h3 className="text-lg font-bold">Growing Businesses</h3>
+              <p className="text-base text-gray-400">
                 Designed for growing businesses with enhanced features and
                 scalability.
               </p>
             </div>
-            <div className="bg-[#252A41] rounded-lg p-6 flex flex-col gap-2 items-center text-center">
+            <div className="flex flex-col items-center gap-2 rounded-lg bg-[#252A41] p-6 text-center">
               <div className="mb-2">
                 <FaBuilding size={48} />
               </div>
-              <h3 className="font-bold text-lg">Enterprise Solutions</h3>
-              <p className="text-gray-400 text-base">
+              <h3 className="text-lg font-bold">Enterprise Solutions</h3>
+              <p className="text-base text-gray-400">
                 Customizable solutions for large organizations with advanced
                 security and support.
               </p>
@@ -143,25 +152,26 @@ export default function LandingPage() {
         </section>
 
         {/* Call to Action Section */}
-        <section className="text-center mb-12">
-          <h2 className="text-3xl font-extrabold mb-4">
+        <section className="mb-12 text-center">
+          <h2 className="mb-4 text-3xl font-extrabold">
             Ready to transform your virtual meetings?
           </h2>
-          <p className="text-gray-300 mb-6">
+          <p className="mb-6 text-gray-300">
             Sign up for Confreto today and experience the future of
             collaboration.
           </p>
-          <Link href="/sign-up">
-            <button className="bg-[#0E78F9] hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg text-lg transition-all">
-              Get Started Free
-            </button>
+          <Link
+            href="/sign-up"
+            className="inline-block rounded-lg bg-[#0E78F9] px-6 py-3 text-lg font-bold text-white transition-all hover:bg-blue-700"
+          >
+            Get Started Free
           </Link>
         </section>
       </main>
       {/* Footer */}
-      <footer className="w-full bg-[#1C1F2E] border-t border-[#23263A] py-8 mt-auto">
-        <div className="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4 text-gray-400 text-sm">
-          <div className="flex flex-wrap gap-6 mb-2 md:mb-0">
+      <footer className="mt-auto w-full border-t border-[#23263A] bg-[#1C1F2E] py-8">
+        <div className="mx-auto max-w-6xl flex flex-col items-center justify-between gap-4 px-4 text-sm text-gray-400 md:flex-row">
+          <div className="mb-2 flex flex-wrap gap-6 md:mb-0">
             <Link href="#">Product</Link>
             <Link href="#">Solutions</Link>
             <Link href="#">Resources</Link>
@@ -173,7 +183,7 @@ export default function LandingPage() {
             <Link href="#">Privacy Policy</Link>
           </div>
         </div>
-        <div className="text-center text-gray-500 text-xs mt-4">
+        <div className="mt-4 text-center text-xs text-gray-500">
           © 2023 Confreto. All rights reserved.
         </div>
       </footer>

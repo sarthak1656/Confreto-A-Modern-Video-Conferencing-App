@@ -6,7 +6,7 @@ import MobileNav from './MobileNav';
 
 const Navbar = () => {
   return (
-    <nav className="flex-between fixed z-50 w-full bg-dark-1 px-6 py-4 lg:px-10">
+    <nav className="fixed z-50 flex-between w-full bg-dark-1 px-6 py-4 lg:px-10">
       <Link href="/" className="flex items-center gap-1">
         <Image
           src="/icons/logo.svg"
@@ -15,25 +15,27 @@ const Navbar = () => {
           alt="Confreto logo"
           className="max-sm:size-10"
         />
-        <span className="text-[26px] font-extrabold text-white max-sm:hidden">
+        <span className="max-sm:hidden font-extrabold text-[26px] text-white">
           Confreto
         </span>
       </Link>
       <div className="flex-between gap-5">
         <SignedIn>
-          <UserButton afterSignOutUrl="/sign-in" />
+          <UserButton afterSignOutUrl="/" />
         </SignedIn>
         <SignedOut>
-          <div className="flex gap-2 items-center">
-            <Link href="/sign-up">
-              <button className="h-10 px-6 text-base font-semibold bg-[#0E78F9] hover:bg-blue-700 text-white rounded-md transition-all shadow-sm whitespace-nowrap">
-                Sign Up
-              </button>
+          <div className="flex items-center gap-2">
+            <Link
+              href="/sign-up"
+              className="inline-block h-10 rounded-md bg-[#0E78F9] px-6 text-base font-semibold text-white shadow-sm transition-all hover:bg-blue-700 whitespace-nowrap"
+            >
+              Sign Up
             </Link>
-            <Link href="/sign-in">
-              <button className="h-10 px-6 text-base font-semibold bg-[#23263A] hover:bg-[#252A41] text-white rounded-md border border-[#252A41] transition-all shadow-sm whitespace-nowrap">
-                Log In
-              </button>
+            <Link
+              href="/sign-in"
+              className="inline-block h-10 rounded-md border border-[#252A41] bg-[#23263A] px-6 text-base font-semibold text-white shadow-sm transition-all hover:bg-[#252A41] whitespace-nowrap"
+            >
+              Log In
             </Link>
           </div>
         </SignedOut>

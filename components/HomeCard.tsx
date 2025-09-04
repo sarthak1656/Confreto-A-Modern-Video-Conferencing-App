@@ -1,33 +1,56 @@
 'use client';
 
 import Image from 'next/image';
-
 import { cn } from '@/lib/utils';
+import type { HomeCardProps } from '@/types';
 
-interface HomeCardProps {
-  className?: string;
-  img: string;
-  title: string;
-  description: string;
-  handleClick?: () => void;
-}
+const HomeCard = ({
+  className,
+  img,
+  title,
+  description,
+  handleClick,
+  ariaLabel,
+  disabled = false,
+}: HomeCardProps) => {
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      if (handleClick && !disabled) {
+        handleClick();
+      }
+    }
+  };
 
-const HomeCard = ({ className, img, title, description, handleClick }: HomeCardProps) => {
   return (
     <section
       className={cn(
-        'bg-orange-1 px-4 py-6 flex flex-col justify-between w-full xl:max-w-[270px] min-h-[260px] rounded-[14px] cursor-pointer',
-        className
+        'bg-orange-1 px-4 py-6 flex flex-col justify-between w-full xl:max-w-[270px] min-h-[260px] rounded-[14px] transition-all duration-200',
+        disabled
+          ? 'opacity-50 cursor-not-allowed'
+          : 'cursor-pointer hover:scale-105 hover:shadow-lg',
+        className,
       )}
-      onClick={handleClick}
+      onClick={disabled ? undefined : handleClick}
+      onKeyDown={handleKeyDown}
+      role="button"
+      tabIndex={disabled ? -1 : 0}
+      aria-label={ariaLabel || `${title}: ${description}`}
+      aria-disabled={disabled}
     >
       <div className="flex-center glassmorphism size-12 rounded-[10px]">
-        <Image src={img} alt="meeting" width={27} height={27} />
+        <Image
+          src={img}
+          alt={`${title} icon`}
+          width={27}
+          height={27}
+          className="select-none"
+        />
       </div>
-      
+
       <div className="flex flex-col gap-2">
-        <h1 className="text-2xl font-bold">{title}</h1>
-        <p className="text-lg font-normal">{description}</p>
+        <h2 className="text-2xl font-bold text-white">{title}</h2>
+        <p className="text-lg font-normal text-white/90">{description}</p>
       </div>
     </section>
   );
