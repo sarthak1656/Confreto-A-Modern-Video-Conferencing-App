@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useUser } from '@clerk/nextjs';
 import { StreamCall, StreamTheme } from '@stream-io/video-react-sdk';
 import { useParams } from 'next/navigation';
@@ -25,7 +25,7 @@ const MeetingPage = () => {
   const { call, isCallLoading } = useGetCallById(callId || '');
 
   // Comprehensive cleanup function
-  const stopAllMediaStreams = () => {
+  const stopAllMediaStreams = useCallback(() => {
     if (call) {
       call.camera.disable();
       call.microphone.disable();
@@ -33,7 +33,7 @@ const MeetingPage = () => {
 
     // Use the cleanup hook
     cleanupMediaStreams();
-  };
+  }, [call, cleanupMediaStreams]);
 
   // Cleanup effect to ensure camera/microphone are disabled when component unmounts
   useEffect(() => {

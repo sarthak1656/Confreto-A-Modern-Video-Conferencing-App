@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import {
   DeviceSettings,
   VideoPreview,
@@ -42,7 +42,7 @@ const MeetingSetup = ({
   const [isMicCamToggled, setIsMicCamToggled] = useState(false);
 
   // Function to properly stop all media streams
-  const stopAllMediaStreams = () => {
+  const stopAllMediaStreams = useCallback(() => {
     // Stop Stream SDK camera and microphone
     if (call) {
       call.camera.disable();
@@ -59,7 +59,7 @@ const MeetingSetup = ({
 
     // Use the cleanup hook
     cleanupMediaStreams();
-  };
+  }, [call, cleanupMediaStreams]);
 
   useEffect(() => {
     if (isMicCamToggled) {
