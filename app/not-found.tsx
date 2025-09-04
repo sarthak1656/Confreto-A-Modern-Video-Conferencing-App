@@ -11,7 +11,7 @@ export default function NotFound() {
           The page you&apos;re looking for doesn&apos;t exist or has been moved.
         </p>
 
-        <div className="flex gap-4 justify-center">
+        <div className="flex justify-center gap-4">
           <Button asChild className="bg-blue-600 hover:bg-blue-700">
             <Link href="/">Go Home</Link>
           </Button>

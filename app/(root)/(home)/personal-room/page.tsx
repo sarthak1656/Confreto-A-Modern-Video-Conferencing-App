@@ -20,7 +20,7 @@ const Table = ({
       <h1 className="text-base font-medium text-sky-1 lg:text-xl xl:min-w-32">
         {title}:
       </h1>
-      <h1 className="truncate font-bold text-sm max-sm:max-w-[320px] lg:text-xl">
+      <h1 className="max-sm:max-w-[320px] truncate text-sm font-bold lg:text-xl">
         {description}
       </h1>
     </div>

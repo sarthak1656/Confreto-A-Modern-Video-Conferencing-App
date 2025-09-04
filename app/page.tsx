@@ -170,7 +170,7 @@ export default async function LandingPage() {
       </main>
       {/* Footer */}
       <footer className="mt-auto w-full border-t border-[#23263A] bg-[#1C1F2E] py-8">
-        <div className="mx-auto max-w-6xl flex flex-col items-center justify-between gap-4 px-4 text-sm text-gray-400 md:flex-row">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 text-sm text-gray-400 md:flex-row">
           <div className="mb-2 flex flex-wrap gap-6 md:mb-0">
             <Link href="#">Product</Link>
             <Link href="#">Solutions</Link>

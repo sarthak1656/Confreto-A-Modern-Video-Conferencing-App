@@ -6,7 +6,7 @@ import MobileNav from './MobileNav';
 
 const Navbar = () => {
   return (
-    <nav className="fixed z-50 flex-between w-full bg-dark-1 px-6 py-4 lg:px-10">
+    <nav className="fixed z-50 w-full flex-between bg-dark-1 px-6 py-4 lg:px-10">
       <Link href="/" className="flex items-center gap-1">
         <Image
           src="/icons/logo.svg"
@@ -15,7 +15,7 @@ const Navbar = () => {
           alt="Confreto logo"
           className="max-sm:size-10"
         />
-        <span className="max-sm:hidden font-extrabold text-[26px] text-white">
+        <span className="max-sm:hidden text-[26px] font-extrabold text-white">
           Confreto
         </span>
       </Link>
@@ -27,13 +27,13 @@ const Navbar = () => {
           <div className="flex items-center gap-2">
             <Link
               href="/sign-up"
-              className="inline-block h-10 rounded-md bg-[#0E78F9] px-6 text-base font-semibold text-white shadow-sm transition-all hover:bg-blue-700 whitespace-nowrap"
+              className="inline-block h-10 whitespace-nowrap rounded-md bg-[#0E78F9] px-6 text-base font-semibold text-white shadow-sm transition-all hover:bg-blue-700"
             >
               Sign Up
             </Link>
             <Link
               href="/sign-in"
-              className="inline-block h-10 rounded-md border border-[#252A41] bg-[#23263A] px-6 text-base font-semibold text-white shadow-sm transition-all hover:bg-[#252A41] whitespace-nowrap"
+              className="inline-block h-10 whitespace-nowrap rounded-md border border-[#252A41] bg-[#23263A] px-6 text-base font-semibold text-white shadow-sm transition-all hover:bg-[#252A41]"
             >
               Log In
             </Link>

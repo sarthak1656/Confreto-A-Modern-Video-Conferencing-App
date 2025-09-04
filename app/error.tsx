@@ -24,7 +24,7 @@ export default function Error({
           {error.message || 'An unexpected error occurred'}
         </p>
 
-        <div className="flex gap-4 justify-center">
+        <div className="flex justify-center gap-4">
           <Button onClick={reset} className="bg-blue-600 hover:bg-blue-700">
             Try again
           </Button>

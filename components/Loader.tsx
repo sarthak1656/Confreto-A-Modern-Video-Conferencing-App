@@ -25,7 +25,7 @@ const Loader = ({
         className="animate-spin"
       />
       {message && (
-        <p className="text-gray-400 text-sm font-medium">{message}</p>
+        <p className="text-sm font-medium text-gray-400">{message}</p>
       )}
     </div>
   );
