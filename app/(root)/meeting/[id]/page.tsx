@@ -15,22 +15,14 @@ import MeetingRoom from '@/components/MeetingRoom';
 const MeetingPage = () => {
   const { id } = useParams();
   const { isLoaded, user } = useUser();
+  const [isSetupComplete, setIsSetupComplete] = useState(false);
+  const { stopAllMediaStreams: cleanupMediaStreams } = useMediaStreamCleanup();
 
   // Ensure id is a string and handle array case
   const callId = Array.isArray(id) ? id[0] : id;
 
-  // Early return if no valid call ID
-  if (!callId) {
-    return (
-      <p className="text-center text-3xl font-bold text-white">
-        Invalid Call ID
-      </p>
-    );
-  }
-
-  const { call, isCallLoading } = useGetCallById(callId);
-  const [isSetupComplete, setIsSetupComplete] = useState(false);
-  const { stopAllMediaStreams: cleanupMediaStreams } = useMediaStreamCleanup();
+  // Only call useGetCallById if we have a valid callId
+  const { call, isCallLoading } = useGetCallById(callId || '');
 
   // Comprehensive cleanup function
   const stopAllMediaStreams = () => {
@@ -48,7 +40,16 @@ const MeetingPage = () => {
     return () => {
       stopAllMediaStreams();
     };
-  }, [call]);
+  }, [call, stopAllMediaStreams]);
+
+  // Early return if no valid call ID
+  if (!callId) {
+    return (
+      <p className="text-center text-3xl font-bold text-white">
+        Invalid Call ID
+      </p>
+    );
+  }
 
   if (!isLoaded || isCallLoading) return <Loader />;
 

@@ -11,12 +11,6 @@ const Loader = ({
   size = 'md',
   fullScreen = true,
 }: LoaderProps) => {
-  const sizeClasses = {
-    sm: 'w-6 h-6',
-    md: 'w-8 h-8',
-    lg: 'w-12 h-12',
-  };
-
   const containerClasses = fullScreen
     ? 'flex-center h-screen w-full flex-col gap-4'
     : 'flex-center w-full flex-col gap-4 py-8';

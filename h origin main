@@ -1,0 +1,5 @@
+[33mcc36f07[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m Remove husky installation script from package.json
+[33m8b2ceaa[m Implement authentication redirects, enhance middleware, and optimize configuration settings
+[33ma329d90[m added a homepage
+[33md526794[m Update README.md
+[33m2d5aa9e[m Create README.md

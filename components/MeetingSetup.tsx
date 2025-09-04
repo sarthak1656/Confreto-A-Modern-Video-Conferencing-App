@@ -1,4 +1,3 @@
-
 'use client';
 import { useEffect, useState, useRef } from 'react';
 import {
@@ -75,7 +74,7 @@ const MeetingSetup = ({
     return () => {
       stopAllMediaStreams();
     };
-  }, [isMicCamToggled, call.camera, call.microphone]);
+  }, [isMicCamToggled, call.camera, call.microphone, stopAllMediaStreams]);
 
   if (callTimeNotArrived)
     return (
